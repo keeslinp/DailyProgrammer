@@ -1,10 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <cmath>
-
 using namespace std;
-
-
 int main(int argc, char *argv[])
 {
 	string buff(argv[1]);
@@ -20,7 +17,6 @@ int main(int argc, char *argv[])
 	        }
 	        *target += *it;
 	}
-	    
 	float h,m;
 	stringstream(hour) >> h;
 	stringstream(min) >> m;
