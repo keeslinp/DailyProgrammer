@@ -1,10 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <cmath>
-
 using namespace std;
-
-
 int main(int argc, char *argv[])
 {
 	string buff(argv[1]);
@@ -20,11 +17,9 @@ int main(int argc, char *argv[])
 	        }
 	        *target += *it;
 	}
-	    
 	float h,m;
 	stringstream(hour) >> h;
 	stringstream(min) >> m;
-//	if(h > 12) h-=12;
 	float answer = fabs(((h+m/60)/24 - m/60) * 360);
 	if(answer > 180) answer = 360 - answer;
 	cout << answer << endl;
