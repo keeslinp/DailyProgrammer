@@ -1,10 +1,11 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
-int compare(string a, string b, char alphabet[])
+int compare(string a, string b, string alphabet)
 {
 	string::iterator ait = a.begin();
 	string::iterator bit = b.begin();
@@ -40,14 +41,58 @@ int compare(string a, string b, char alphabet[])
 	return -1;
 }
 
+bool check(string Gorellian)
+{
+	for(string::iterator c = Gorellian.begin();c < Gorellian.end();c++)
+	{
+		if(*c <=90) *c += 32;
+	}
+	string English("abcdefghijklmnopqrstuvwxyz");
+	vector<char> repeats;
+	vector<char> missing;
+	for(string::iterator c = English.begin();c < English.end();c++)
+	{
+		int val = count(Gorellian.begin(),Gorellian.end(),*c);
+		if(val >1)repeats.push_back(*c);
+		if(val <1)missing.push_back(*c);
+	}
+	string out;
+	bool flag = false;
+	if(missing.size() > 0)
+	{
+		out += "Error! Missing letters: ";
+		for(vector<char>::iterator it = missing.begin(); it < missing.end();it++)
+		{
+			out += *it;
+			out += " ";
+		}
+		out += '\n';
+		flag = true;
+	}
+	if(repeats.size() > 0)
+	{
+		out += "Error! Duplicate letters found in alphabet: ";
+		for(vector<char>::iterator it = repeats.begin(); it < repeats.end();it++)
+		{
+			out += *it;
+			out += " ";
+		}
+		out += '\n';
+		flag = true;
+	}
+	cout << out;
+	return flag;
+}
+
 int main(int argc, char* argv[])
 {
 	int count;
 	ifstream in("Gorellian.in");
 	in >> count;
 	vector<string> words(count);
-	char alphabet[26];
+	string alphabet("");
 	in >> alphabet;
+	if(check(alphabet))return -1;
 	string dump;
 	getline(in,dump);
 
