@@ -15,6 +15,7 @@ int reverse(int i)
 
 bool isPalindrome(int n)
 {
+	if(n%11!=0) return false;
 	return n == reverse(n);
 }
 
