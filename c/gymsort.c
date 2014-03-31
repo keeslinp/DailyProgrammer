@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int compare(const void* a, const void* b)
 {
@@ -8,19 +9,35 @@ int compare(const void* a, const void* b)
 
 int main(int argc,char* argv[])
 {
-	int times[argc-1];
-	for(int i =1;i <argc;i++)
+	int times[15];
+	char* token;
+	char str[strlen(argv[1])+1];
+	strcpy(str,argv[1]);
+	char* p = str;
+	p++;
+	p[strlen(p)-1] = 0;
+	token = strtok(p,",");
+	int count =0;
+	while(token!=NULL)
 	{
-		times[i-1] = atoi(argv[i]);
-		if(times[i-1] < 12)times[i-1] += 24;
+		times[count] = atoi(token);
+		if(times[count] < 12)times[count] += 24;
+		count++;
+		token= strtok(NULL,",");
 	}
-	qsort(times,argc-1,sizeof(int),compare);
-	for(int* i = times;i<times+sizeof(times)/sizeof(int);i++)
+	qsort(times,count,sizeof(int),compare);
+	char out[400];
+	out[0] = '\0';
+	for(int* i = times;i<times+ count;i++)
 	{
-		if(*i>24)*i-=24;
-		printf("%d ",*i);
+		int delta = 0;
+		if(*i>24)delta=24;
+		char buff[7];
+		sprintf(buff,"%d%s,",*i-delta,(delta!=0?"am":"pm"));
+		strcat(out,buff);
 	}
-	printf("\n");
+	out[strlen(out)-1]=0;
+	printf("[%s]\n",out);
 	
 	return 0;
 }
