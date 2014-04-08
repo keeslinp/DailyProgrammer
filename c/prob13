@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+   FILE *fp;
+   char buff[255];
+    unsigned long long sum =0;
+   fp = fopen("input.txt", "r");
+   if( fp != NULL ){
+      while ( fscanf(fp,"%[^\n]\n",buff) != EOF ){
+          unsigned long long num = 0;
+          for(int i = 0; i < 11;i++)
+          {
+              num = num * 10 + (buff[i]-48);
+          }
+          sum += num;
+         printf("%ld\n",num );
+      }
+      fclose(fp);
+   }
+   sum /= pow(10, floor(log10(sum)-10)+1);
+   printf("%ld\n",sum);
+}
