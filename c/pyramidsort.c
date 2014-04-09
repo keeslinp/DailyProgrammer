@@ -14,8 +14,14 @@ void reverse(int* ary, int size)
 	memcpy(ary,buff,size*sizeof(int));
 }
 
+int compare(const void *a, const void *b)
+{
+	return (*(int*)a - *(int*) b);
+}
+
 void psort(int* nums, int size)
 {
+	qsort(nums,size,sizeof(int),compare);
 	int d = (size%2==0?0:1);
 	int first[size/2+d];
 	int second[size/2];
