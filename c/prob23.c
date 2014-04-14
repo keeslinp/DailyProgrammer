@@ -5,13 +5,12 @@
 #include <string.h>
 #include <time.h>
 
+int primes[10000];
 
-
-bool is_abundant(int VALUE)
+void make_primes(int VALUE)
 {
 	int lim = VALUE/2+1;
 	bool prime[lim];
-	int primes[lim/2];
 	int* p = primes;
 	for(bool* b = prime;b<prime+lim; b++)
 		*b = true;
@@ -27,6 +26,10 @@ bool is_abundant(int VALUE)
 				prime[i*(j++ - 1)] = false;
 		}
 	}
+}
+
+bool is_abundant(int VALUE)
+{
 	int buff = VALUE;
 	int prime_factors[VALUE];
 	int multiplicity[VALUE];
@@ -61,7 +64,7 @@ int main(int argc,char* argv[])
 	double time_spent;
 	
 	begin= clock();
-	
+	make_primes(28123);
 	int abundants[10000] = {0};
 	int* a = abundants-1;
 	bool summable[28123]= {false};
