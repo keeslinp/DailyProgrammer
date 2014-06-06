@@ -14,7 +14,6 @@ int main()
 	fscanf(fp,"%i %i",&width,&length);
 	char buff[500];
 	fgets(buff,500,fp);
-	printf("%i X %i\n",width, length);
 
 	int map[length][width];
 	Point position = Point_Default;
@@ -49,14 +48,6 @@ int main()
 				move->y = dy;
 			}
 	move++;
-
-
-	for(int i =0;i<length;i++)
-	{
-		for(int j =0;j<width;j++)
-			printf("%i",map[i][j]);
-		puts("");
-	}
 
 	while((position.x!=target.x || position.y!=target.y) && move < moves + 100)
 	{
